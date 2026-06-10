@@ -8,6 +8,8 @@
 
 # Additional basic string exercises
 
+import math
+
 # D. verbing
 # Given a string, if its length is at least 3,
 # add 'ing' to its end.
@@ -16,8 +18,12 @@
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
 def verbing(s):
-  # +++your code here+++
-  return
+    if len(s) < 3:
+        return s
+    elif s[-3:] == 'ing':
+        return s + 'ly'
+    else:
+        return s + 'ing'    
 
 
 # E. not_bad
@@ -29,8 +35,12 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-  # +++your code here+++
-  return
+    not_position = s.find('not')
+    bad_position = s.find('bad', not_position + 2)
+    if bad_position == -1:
+        return s
+    else:  
+        return s[0:not_position - 1] + ' good' + s[bad_position + 3:]     
 
 
 # F. front_back
@@ -41,8 +51,24 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-  # +++your code here+++
-  return
+
+    a_length = len(a)
+    b_length = len(b)
+    if a_length % 2 == 0:
+        a_cutoff = int(a_length/2)
+    else:
+        a_cutoff = math.floor(a_length/2+1)
+    a_front = a[0:a_cutoff]
+    a_back = a[a_cutoff:]
+    
+    if b_length % 2 == 0:
+        b_cutoff = int(b_length/2)
+    else:
+        b_cutoff = math.floor(b_length/2+1)
+    b_front = b[0:b_cutoff]
+    b_back = b[b_cutoff:]
+    
+    return a_front + b_front + a_back + b_back
 
 
 # Simple provided test() function used in main() to print
