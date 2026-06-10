@@ -23,13 +23,11 @@
 # instead of the actual count.
 # So donuts(5) returns 'Number of donuts: 5'
 # and donuts(23) returns 'Number of donuts: many'
-def donuts(count):
-  # +++your code here+++
-  if count >= 10:
-    print(f'Number of donuts: {count}')
-  else:
-    print(f'Number of donuts: many')  
-  return
+def donuts(count):  
+    if count < 10:
+        return ('Number of donuts: ' + str(count))
+    else:
+        return ('Number of donuts: many')  
 
 
 # B. both_ends
@@ -54,10 +52,8 @@ def both_ends(s):
 # Assume that the string is length 1 or more.
 # Hint: s.replace(stra, strb) returns a version of string s
 # where all instances of stra have been replaced by strb.
-def fix_start(s):
-  if len(s) < 1:
-    print('s cannot be an empty string')    
-  return s[1:].replace(s[0],'*')
+def fix_start(s):    
+    return s[0] + s[1:].replace(s[0],'*')
 
 
 # D. MixUp
@@ -68,8 +64,7 @@ def fix_start(s):
 #   'dog', 'dinner' -> 'dig donner'
 # Assume a and b are length 2 or more.
 def mix_up(a, b):
-
-  return
+    return b[0:2] + a[2:] + ' ' + a[0:2] + b[2:]
 
 
 # Provided simple test() function used in main() to print
