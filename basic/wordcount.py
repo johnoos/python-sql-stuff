@@ -40,6 +40,35 @@ print_words() and print_top().
 import sys
 
 # +++your code here+++
+def wordcounts(f):
+    wordcounters = {}
+    f = open(f, 'rt', encoding='utf-8')
+    for line in f:
+        words = line.split()  
+        for word in words:
+            wordlower = word.lower()
+            if wordlower in wordcounters.keys():
+                wordcounters[wordlower] += 1
+            else:
+                wordcounters[wordlower] = 1         
+    f.close()
+    return wordcounters
+    
+def print_words(filename):
+    counts_dict = wordcounts(filename)
+    wordlist = sorted(counts_dict)
+    for word in wordlist:
+        print(f'{word} {counts_dict[word]}')
+    return       
+
+def print_top(filename):
+    wc_dict = wordcounts(filename)
+    listoftuples = sorted(wc_dict.items(), key=lambda item: item[1], reverse=True)
+    twentyorless = min(20, len(listoftuples))
+    for i in range(twentyorless):
+        print(f'{listoftuples[i][0]}')
+    return
+    
 # Define print_words(filename) and print_top(filename) functions.
 # You could write a helper utility function that reads a file
 # and builds and returns a word/count dict for it.
