@@ -35,34 +35,60 @@ Suggested milestones for incremental development:
 """
 
 def extract_names(filename):
-  """
-  Given a file name for baby.html, returns a list starting with the year string
-  followed by the name-rank strings in alphabetical order.
-  ['2006', 'Aaliyah 91', Aaron 57', 'Abagail 895', ' ...]
-  """
-  # +++your code here+++
-  return
-
-
+    f = open(filename, 'rt', encoding='utf-8')
+    filestring = f.read()
+    f.close()
+    
+    returnedlist = []
+    nameslist = []
+    
+    # 1. Extract the year
+    year_match = re.search(r'Popularity in ([0-9]{4})', filestring)
+    if year_match:
+        returnedlist.append(year_match.group(1))
+    
+    # 2. Extract all ranks and names instantly
+    # This pattern catches: (Rank), (Boy Name), (Girl Name)
+    pattern = r'<tr align="right"><td>([0-9]+)</td><td>([^<]+)</td><td>([^<]+)</td>'
+    tuples = re.findall(pattern, filestring)
+    
+    # 3. Process the tuples into the required format
+    for rank, boy_name, girl_name in tuples:
+        nameslist.append(f'{boy_name} {rank}')
+        nameslist.append(f'{girl_name} {rank}')
+    returnedlist.extend(sorted(nameslist))   
+    return returnedlist
+    
+    
 def main():
-  # This command-line parsing code is provided.
-  # Make a list of command line arguments, omitting the [0] element
-  # which is the script itself.
-  args = sys.argv[1:]
+    # This command-line parsing code is provided.
+    # Make a list of command line arguments, omitting the [0] element
+    # which is the script itself.
+    args = sys.argv[1:]
 
-  if not args:
-    print('usage: [--summaryfile] file [file ...]')
-    sys.exit(1)
+    if not args:
+        print('usage: [--summaryfile] file [file ...]')
+        sys.exit(1)
 
-  # Notice the summary flag and remove it from args if it is present.
-  summary = False
-  if args[0] == '--summaryfile':
-    summary = True
-    del args[0]
-
-  # +++your code here+++
-  # For each filename, get the names, then either print the text output
-  # or write it to a summary file
-
+    # Notice the summary flag and remove it from args if it is present.
+    summary = False
+    if args[0] == '--summaryfile':
+        summary = True
+        del args[0]
+    else:
+        summary = False
+    with open('summary.txt', 'w', encoding='utf-8') as f:        
+        for babyfile in args:
+            compositelist = extract_names(babyfile)
+            if summary:
+                for string in compositelist:
+                    f.write(f'{string}\n')
+            else:
+                print(compositelist)
+        
+    # +++your code here+++
+    # For each filename, get the names, then either print the text output
+    # or write it to a summary file
+    
 if __name__ == '__main__':
-  main()
+    main()
