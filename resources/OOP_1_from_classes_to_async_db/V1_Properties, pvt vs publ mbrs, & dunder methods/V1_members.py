@@ -37,7 +37,8 @@ class SmartDevice:
         
         This intercepts assignment statements like 'device.price = 500'.
         It acts as a gatekeeper, allowing you to validate data or run
-        checks before modifying the actual underlying private self._price variable.
+        checks before modifying the actual underlying private self._price 
+ 	  variable.
         """
         if new_price < 0:
             raise ValueError("Price cannot be negative!")
@@ -62,9 +63,9 @@ class SmartDevice:
         """
         The 'Addition' Dunder Method.
         
-        Syntax Trigger: triggered automatically by the '+' operator (e.g., object1 + object2).
-        
-        This method defines what happens when this object is on the LEFT side of the plus sign.
+        Syntax Trigger: triggered automatically by the '+' operator 
+        (e.g., object1 + object2). This method defines what happens when this 
+        object is on the LEFT side of the plus sign.
         It checks if the other object is another SmartDevice or a raw number, 
         and adds their values together accordingly.
         """
@@ -78,10 +79,12 @@ class SmartDevice:
         """
         The 'Right-Side Addition' Dunder Method.
         
-        Syntax Trigger: triggered by the '+' operator when this object is on the RIGHT side 
-        of the plus sign, and the left object doesn't know how to handle it (e.g., number + object).
+        Syntax Trigger: triggered by the '+' operator when this object is on the 
+        RIGHT side of the plus sign, and the left object doesn't know how to 
+        handle it (e.g., number + object).
         
-        This acts as a fallback. It reroutes the operation back to our main __add__ method 
+        This acts as a fallback. It reroutes the operation back to our 
+        main __add__ method 
         to ensure math operations work seamlessly regardless of operand order.
         """
         return self.__add__(other)
@@ -93,11 +96,10 @@ class SmartDevice:
     def __len__(self) -> int:
         """
         The 'Length' Dunder Method.
-        
-        Syntax Trigger: triggered automatically when passing the object to the built-in len() function.
-        
-        Instead of forcing users to look up an internal list, this allows them to query 
-        the device directly to see how many items (apps) it contains internally.
+        Syntax Trigger: triggered automatically when passing the object to the 
+  built-in len() function. Instead of forcing users to look up an internal  
+  list, this allows them to query the device directly to see how many items 
+  (apps) it contains internally.
         """
         return len(self._installed_apps)
 
@@ -105,10 +107,12 @@ class SmartDevice:
         """
         The 'Get Item' Dunder Method.
         
-        Syntax Trigger: triggered by bracket notation for reading data (e.g., device[index]).
+        Syntax Trigger: triggered by bracket notation for reading data 
+        (e.g., device[index]).
         
         This maps square-bracket lookups directly onto our private internal list, 
-        making the instance object itself behave transparently like a sequence or collection.
+        making the instance object itself behave transparently like a sequence 
+        or collection.
         """
         return self._installed_apps[index]
 
@@ -116,9 +120,11 @@ class SmartDevice:
         """
         The 'Set Item' Dunder Method.
         
-        Syntax Trigger: triggered by bracket notation for changing data (e.g., device[index] = value).
+        Syntax Trigger: triggered by bracket notation for changing data 
+        (e.g., device[index] = value).
         
-        This intercepts element assignment via square brackets, allowing you to update 
+        This intercepts element assignment via square brackets, allowing you 
+        to update 
         values inside the internal container safely.
         """
         self._installed_apps[index] = app_name
@@ -141,8 +147,8 @@ class SmartDevice:
         """
         Weak Private Method (Single Underscore).
         
-        Syntax Mechanism: Purely a naming convention. Python does NOT restrict access 
-        to this method from the outside. 
+        Syntax Mechanism: Purely a naming convention. Python does NOT 
+        restrict access to this method from the outside. 
         
         It acts as a gentle warning to other developers that this is an internal 
         helper method and should not be relied upon as a part of the public API.
@@ -153,11 +159,12 @@ class SmartDevice:
         """
         Strong Private Method (Double Underscore / Name Mangling).
         
-        Syntax Mechanism: Because of the double leading underscore, Python rewrites 
-        the internal name of this method to '_SmartDevice__load_firmware'.
+        Syntax Mechanism: Because of the double leading underscore, 
+        Python rewrites the internal name of this method to 
+        '_SmartDevice__load_firmware'.
         
-        This actively hides the method from external accidental calls and protects it from 
-        being overridden by a child subclass.
+        This actively hides the method from external accidental calls and 
+        protects it from being overridden by a child subclass.
         """
         print("Loading secure operating system layers...")
 
@@ -198,7 +205,8 @@ if __name__ == "__main__":
 
 
     print("\n--- 4. Testing Method Privacy Levels ---")
-    # Calling the public method works perfectly and executes both private methods internally
+    # Calling the public method works perfectly and executes both private 
+    # methods internally
     device1.boot_device()
 
     print("\nExternal access checks:")

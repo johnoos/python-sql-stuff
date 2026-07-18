@@ -1,0 +1,6 @@
+# V4 - Plus __slots__() and JSON Serialisation
+Using __slots__ and custom JSON serialization together creates highly optimized, production-grade Python applications. This approach allows you to build classes that use minimal memory while still allowing their data to be converted into web-safe JSON formats.
+Here is how you can integrate both concepts into our architectural blueprint:
+Architectural Takeaways
+* __slots__ Optimization: When you create millions of object instances (such as processing telemetry data packets or gaming coordinates), Python's default behavior of pairing every instance with a dictionary wrapper (__dict__) wastes massive amounts of RAM. Using __slots__ explicitly allocates memory spaces for only your predefined attributes, reducing your memory footprint by up to 40% to 50% while increasing attribute retrieval speeds.
+* The Serialization Bridge: Because __slots__ removes the standard __dict__ container, native tools like json.dumps() fail out-of-the-box. Writing a custom json.JSONEncoder allows you to build an inspection loop that climbs the class inheritance hierarchy tree (__mro__), collects the private variables, and structures them into public-facing data dictionaries.

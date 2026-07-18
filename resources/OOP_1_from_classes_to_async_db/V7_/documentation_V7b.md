@@ -1,0 +1,2 @@
+# The Production Deployment Configuration (Dockerfile)
+To containerize the service, create a file named exactly Dockerfile in your root directory. This uses a multi-stage build to optimize performance, eliminate unnecessary dependencies, and keep the final deployment footprint tiny and secure.
